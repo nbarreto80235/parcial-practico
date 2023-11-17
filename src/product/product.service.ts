@@ -2,8 +2,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProductEntity } from './product.entity';
 import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
+import { ProductEntity } from './product.entity';
 
 
 
@@ -16,7 +16,7 @@ export class ProductService {
 
     private validateTypeProduct(tipo: string): void {
         BusinessLogicException.validateTypeProduct(tipo);
-      }
+    }
 
     // return all products
     async findAll(): Promise<ProductEntity[]> {
@@ -38,9 +38,9 @@ export class ProductService {
         return await this.productRepository.save(product);
     }
 
+    // update a product
     async update(id: string, product: ProductEntity): Promise<ProductEntity> {
-        BusinessLogicException.validateTypeProduct(product.type);
-
+        this.validateTypeProduct(product.type);
         const persistedProduct: ProductEntity = await this.productRepository.findOne({where:{id}});
 
         if (!persistedProduct)
@@ -49,6 +49,7 @@ export class ProductService {
         return await this.productRepository.save({...persistedProduct, ...product});
     }
 
+    // delete a product
     async delete(id: string) {
         const product: ProductEntity = await this.productRepository.findOne({where:{id}});
         if (!product)

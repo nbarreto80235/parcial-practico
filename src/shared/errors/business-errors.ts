@@ -19,7 +19,13 @@ export class BusinessLogicException extends Error {
         throw new BusinessLogicException('The type of product must be "Perecedero" or "No perecedero"', BusinessError.BAD_REQUEST);
       }
     }
-    
+
+    static validateCityCode(cityCode: string): void {
+        if (!/^[A-Z]{3}$/.test(cityCode)) {
+          throw new BusinessLogicException('The city code must be three characters (e.g., SMR, BOG, MED)', BusinessError.BAD_REQUEST);
+        }
+      }
+
   }  
   
   export enum BusinessError {

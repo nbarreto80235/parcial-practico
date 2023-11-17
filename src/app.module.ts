@@ -8,6 +8,8 @@ import { StoreEntity } from './store/store.entity';
 import { ProductEntity } from './product/product.entity';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { StoreProductModule } from './store-product/store-product.module';
+
 
 
 @Module({
@@ -22,7 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     dropSchema: true,
     synchronize: true,
     keepConnectionAlive: true
-  }),],
+  }), StoreProductModule, ],
   controllers: [AppController],
   providers: [AppService],
 })

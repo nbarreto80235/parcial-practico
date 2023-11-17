@@ -5,8 +5,6 @@ import { Repository } from 'typeorm';
 import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 import { ProductEntity } from './product.entity';
 
-
-
 @Injectable()
 export class ProductService {
     constructor(

@@ -14,6 +14,10 @@ export class ProductService {
         private readonly productRepository: Repository<ProductEntity>
     ){}
 
+    private validateTypeProduct(tipo: string): void {
+        BusinessLogicException.validateTypeProduct(tipo);
+      }
+
     // return all products
     async findAll(): Promise<ProductEntity[]> {
         return await this.productRepository.find({ relations: ["stores"] });
@@ -30,11 +34,15 @@ export class ProductService {
 
     // create a new product
     async create(product: ProductEntity): Promise<ProductEntity> {
+        this.validateTypeProduct(product.type);
         return await this.productRepository.save(product);
     }
 
     async update(id: string, product: ProductEntity): Promise<ProductEntity> {
+        BusinessLogicException.validateTypeProduct(product.type);
+
         const persistedProduct: ProductEntity = await this.productRepository.findOne({where:{id}});
+
         if (!persistedProduct)
           throw new BusinessLogicException("The museum with the given id was not found", BusinessError.NOT_FOUND);
         

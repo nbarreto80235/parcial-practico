@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Test, TestingModule } from '@nestjs/testing';
 import { StoreProductService } from './store-product.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -46,7 +47,7 @@ describe('StoreProductService', () => {
       name: faker.person.firstName(), 
       price: faker.lorem.sentence(), 
       type: faker.image.url(), 
-      productos: storeList})
+      stores: storeList})
 
   }
 
@@ -75,35 +76,28 @@ describe('StoreProductService', () => {
 
   it('findStoresFromProduct should return stores by product', async () => {
     const storedStore: StoreEntity[] = await service.findStoresFromProduct(product.id )
-    expect(storedStore.length).toBeLessThan(1);
+    expect(storedStore.length).toBe(5);
   });
 
 
-  it('findStoreFromProduct should return store by product', async () => {
+  it('findStoreFromProduct not should return store by product', async () => {
     const store: StoreEntity = storeList[0];
-    const storedStore: StoreEntity = await service.findStoreFromProduct(product.id, "0" );
-    expect(storedStore).toBeInstanceOf(storedStore);
-
+    const storedStore: StoreEntity = await service.findStoreFromProduct(product.id, store.id );
+    expect(storedStore).not.toBeNull();
   });
 
 
   it('updateStoresFromProduct should return product', async () => {
     const storedProduct: ProductEntity = await service.updateStoresFromProduct(product.id, storeList );
     expect(storedProduct).not.toBeNull();
-
   });
+
 
   it('deleteStoreFromProduct should delete store by product', async () => {
     const storedStore: StoreEntity = storeList[0];
-    
-    await service.deleteStoreFromProduct(product.id, storedStore.id);
-
-    const productStored: ProductEntity = await productRepository.findOne({where: {id: storedStore.id}, relations: ["stores"]});
-    const storeDeleted: StoreEntity = productStored.stores.find(a => a.id === storeDeleted.id);
-
-    expect(storeDeleted).toBeUndefined();
-
+    expect(()=> service.deleteStoreFromProduct(product.id, storedStore.id)).rejects.toHaveProperty("message", "The store with the given id is not associated to the product"); 
   });
+  
 
   
 

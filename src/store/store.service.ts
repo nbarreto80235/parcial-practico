@@ -42,7 +42,7 @@ export class StoreService {
         const persistedStore: StoreEntity = await this.storeRepository.findOne({where:{id}});
 
         if (!persistedStore)
-          throw new BusinessLogicException("The museum with the given id was not found", BusinessError.NOT_FOUND);
+          throw new BusinessLogicException("The store with the given id was not found", BusinessError.NOT_FOUND);
         
         return await this.storeRepository.save({...persistedStore, ...store});
     }

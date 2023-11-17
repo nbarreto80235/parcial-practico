@@ -9,7 +9,7 @@ import { ProductEntity } from './product/product.entity';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StoreProductModule } from './store-product/store-product.module';
-import { ProductStoreController } from './product-store/product-store.controller';
+
 
 
 
@@ -26,7 +26,7 @@ import { ProductStoreController } from './product-store/product-store.controller
     synchronize: true,
     keepConnectionAlive: true
   }), StoreProductModule, ],
-  controllers: [AppController, ProductStoreController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

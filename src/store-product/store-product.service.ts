@@ -72,8 +72,22 @@ export class StoreProductService {
         if (!product) {
             throw new BusinessLogicException("The product with the given id was not found", BusinessError.PRECONDITION_FAILED)
         }
+
+        for (const updatedStore of updatedStores) {
+          const store: StoreEntity = await this.storeRepository.findOne({ where: { id: updatedStore.id } });
+          if (!store) {
+            throw new BusinessLogicException("The store with the given id was not found", BusinessError.PRECONDITION_FAILED)
+          } else {
+            const existingStoreIndex = product.stores.findIndex(store => store.id === updatedStore.id);
+            if (existingStoreIndex !== -1) {
+                product.stores[existingStoreIndex] = updatedStore;
+            } else {
+                product.stores.push(updatedStore);
+            }
   
-        product.stores = updatedStores;
+          }
+        }
+       // product.stores = updatedStores;
   
         await this.productRepository.save(product);
 

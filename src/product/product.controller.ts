@@ -3,10 +3,12 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseIntercept
 import { plainToInstance } from 'class-transformer';
 import { ProductEntity } from './product.entity';
 import { ProductDto } from './dto/product.dto';
+import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors/business-errors.interceptor';
 
 import { ProductService } from './product.service';
 
-@Controller('product')
+@Controller('products')
+@UseInterceptors(BusinessErrorsInterceptor)
 export class ProductController {
     constructor(private readonly productService: ProductService) {}
 

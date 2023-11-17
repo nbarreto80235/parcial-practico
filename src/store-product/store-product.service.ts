@@ -67,7 +67,6 @@ export class StoreProductService {
 
     
     async updateStoresFromProduct(productId: string, updatedStores: StoreEntity[]): Promise<ProductEntity> {
-        // Buscar el producto por su ID
         const product: ProductEntity = await this.productRepository.findOne({ where: { id: productId }, relations: ['stores'] });
   
         if (!product) {
@@ -88,7 +87,7 @@ export class StoreProductService {
      
         const product: ProductEntity = await this.productRepository.findOne({where: {id: productId}, relations: ["stores"]});
         if (!product)
-          throw new BusinessLogicException("The product with the given id was not found", BusinessError.NOT_FOUND)
+          throw new BusinessLogicException("The product with the given id was not found", BusinessError.NOT_FOUND);
      
         const productStore: StoreEntity = product.stores.find(e => e.id === store.id);
      

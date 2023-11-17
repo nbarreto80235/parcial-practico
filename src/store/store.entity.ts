@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Column, Entity, PrimaryGeneratedColumn, JoinTable, ManyToMany } from 'typeorm';
-import { StoreEntity } from '../store/store.entity';
+import { ProductEntity } from '../product/product.entity';
 
 @Entity()
-export class ProductEntity {
+export class StoreEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -11,13 +11,13 @@ export class ProductEntity {
     name: string;
 
     @Column()
-    price: string;
+    city: string;
 
     @Column()
-    type: string;
+    address: string;
 
-    @ManyToMany(() => StoreEntity, product => product.stores)
+    @ManyToMany(() => ProductEntity, store => store.products)
     @JoinTable()
-    stores: StoreEntity[];
+    stores: ProductEntity[];
 
 }

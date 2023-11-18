@@ -338,7 +338,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n    {\r\n    \"id\": \"d9d3f795-7e6a-4292-8e65-0d386fb52fc2\",    \r\n    \"name\":\"Tienda 1\",\r\n    \"city\":\"BOG\",\r\n    \"address\":\"Dirección Uno\"\r\n    },\r\n    {\r\n    \"name\":\"Tienda 2\",\r\n    \"city\":\"BOG\",\r\n    \"address\":\"Dirección Dos\"\r\n    },\r\n    {\r\n    \"name\":\"Tienda 3\",\r\n    \"city\":\"BOG\",\r\n    \"address\":\"Dirección Tres\"\r\n    }\r\n]",
+					"raw": "[\r\n    {\r\n    \"id\": \"{{store_id}}\",    \r\n    \"name\":\"Tienda 1\",\r\n    \"city\":\"BOG\",\r\n    \"address\":\"Dirección Uno\"\r\n    },\r\n    {\r\n    \"name\":\"Tienda 2\",\r\n    \"city\":\"BOG\",\r\n    \"address\":\"Dirección Dos\"\r\n    },\r\n    {\r\n    \"name\":\"Tienda 3\",\r\n    \"city\":\"BOG\",\r\n    \"address\":\"Dirección Tres\"\r\n    }\r\n]",
 					"options": {
 						"raw": {
 							"language": "json"

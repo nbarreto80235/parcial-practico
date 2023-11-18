@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "d9a3d425-4ae8-48b4-97bd-15b3e722b8f5",
+		"name": "Parcial-practico-stores",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29848123"
+	},
+	"item": [
+		{
+			"name": "Crear new store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Nueva tienda\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var id = jsonData.id;\r",
+							"    console.log(\"Respuesta: \", id);\r",
+							"    pm.collectionVariables.set(\"store_id\", id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Producto 1\",\r\n    \"city\":\"BOG\",\r\n    \"address\":\"No perecedero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_base}}/stores",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear new store invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"   pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Producto 1\",\r\n    \"city\":\"BOGOTA\",\r\n    \"address\":\"No perecedero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_base}}/stores",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/stores",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find one store by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/stores/{{store_id}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores",
+						"{{store_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find one store by not exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The store with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/stores/e345ada2-48f2-43ea-bd9e-31ae42c19999",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores",
+						"e345ada2-48f2-43ea-bd9e-31ae42c19999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Tienda Uno\",\r\n    \"city\":\"MED\",\r\n    \"address\":\"Direccion nueva\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_base}}/stores/{{store_id}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores",
+						"{{store_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Store not exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The store with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Tienda Uno\",\r\n    \"city\":\"MED\",\r\n    \"address\":\"Direccion nueva\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_base}}/stores/e345ada2-48f2-43ea-bd9e-31ae42c19999",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores",
+						"e345ada2-48f2-43ea-bd9e-31ae42c19999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/stores/{{store_id}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores",
+						"{{store_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a store not exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"No se encontró el producto con el id indicado.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/stores/e345ada2-48f2-43ea-bd9e-31ae42c19999",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"stores",
+						"e345ada2-48f2-43ea-bd9e-31ae42c19999"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_base",
+			"value": "localhost:3000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "store_id",
+			"value": "{{store_id}}",
+			"type": "string"
+		}
+	]
+}
